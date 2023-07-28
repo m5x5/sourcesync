@@ -42,6 +42,9 @@ nav {
 ul {
   list-style-type: none;
   display: flex;
+  gap: 1rem;
+
+
 }
 
 li {
@@ -52,7 +55,14 @@ li {
 h1 {
   line-height: 1.1;
   font-size: 1.9rem;
-  color: oklch(0.7 0.14 268.11);
+  color: oklch(0.49 0.2 358.02);
+
+
+
+
+
+
+
 }
 
 #app {
@@ -73,10 +83,18 @@ h1 {
 }
 .logo.vanilla:hover {
   filter: drop-shadow(0 0 2em #3178c6aa);
+
+
 }
 
 .card {
-  padding: 2em;
+  padding: 1.4em;
+
+
+
+
+
+
 }
 
 .read-the-docs {
@@ -115,3 +133,9 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+
+
+
+

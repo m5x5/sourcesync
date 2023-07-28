@@ -37,6 +37,7 @@ nav {
 }
 
 ul {
+  gap: 1rem;
   list-style-type: none;
   display: flex;
 }
@@ -47,7 +48,7 @@ li {
 }
 
 h1 {
-  color: oklch(0.7 0.14 268.11);
+  color: oklch(.49 .2 358.02);
   font-size: 1.9rem;
   line-height: 1.1;
 }
@@ -75,7 +76,7 @@ h1 {
 }
 
 .card {
-  padding: 2em;
+  padding: 1.4em;
 }
 
 .read-the-docs {

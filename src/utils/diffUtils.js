@@ -1,25 +1,26 @@
-/**
- * Compute the diff between the lines of two files
- * @param {string} originalFile - The content of the original file
- * @param {string} changedFile - The content of the changed file
- * @returns {Object[]} - The diff between the files
- */
-export const diffLines = (originalFile, changedFile) => {
-  const originalLines = originalFile.split("\n");
-  const changedLines = changedFile.split("\n");
+import { diffLines as diff } from "diff";
 
-  const diff = [];
+export const computeLineDifferences = (originalContent, updatedContent) => {
+  const diffResult = diff(originalContent, updatedContent);
 
-  originalLines.forEach((originalLine, index) => {
-    const changedLine = changedLines[index];
-    if (originalLine !== changedLine) {
-      diff.push({
-        line: index,
-        originalLine,
-        changedLine,
-      });
-    }
-  });
+  const changes = diffResult
+    .map((part, i) => {
+      console.log(part);
+      if (part.added || part.removed) {
+        const lineIndex = diffResult.reduce((acc, curr, index) => {
+          if (index <= i) {
+            return acc + curr.count;
+          }
+          return acc;
+        }, 0);
+        return {
+          lineIndex: lineIndex,
+          originalLine: part.removed ? part.value : "",
+          updatedLine: part.added ? part.value : "",
+        };
+      }
+    })
+    .filter(Boolean);
 
-  return diff;
+  return changes;
 };

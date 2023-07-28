@@ -13,8 +13,15 @@ export const updateOriginalFileWithChanges = async (changes) => {
   ).split("\n");
 
   changes.forEach((change) => {
-    const originalLineNr = findOriginalLineNr(originalFile, change);
-    originalFile[originalLineNr - 1] = change.lineAfterChange;
+    if (change.ruleAdded) {
+      const previousLine = previousLineNr(originalFile, change);
+
+      originalFile.splice(previousLine, 0, change.lineAfterChange);
+    } else {
+      const originalLineNr = findOriginalLineNr(originalFile, change);
+
+      originalFile[originalLineNr - 1] = change.lineAfterChange;
+    }
   });
 
   // Save a copy of the edited file
@@ -40,3 +47,15 @@ export const findOriginalLineNr = (originalFile, change) => {
 
   return lineNr + 1;
 };
+
+export function previousLineNr(originalFile, change) {
+  // Find the '}' and insert the new rule before that
+  const lineNr = originalFile.findIndex((line, index) => {
+    if (change.changeStartLine - 1 > index) return false;
+    if (change.changeEndLine < index) return false;
+
+    return line.trim() === "}";
+  });
+
+  return lineNr;
+}

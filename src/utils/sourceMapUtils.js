@@ -1,7 +1,7 @@
 import fs from "fs";
 import { join } from "path";
 import { SourceMapConsumer } from "source-map";
-import { diffLines } from "./diffUtils.js";
+import { computeLineDifferences } from "./diffUtils.js";
 
 /**
  * Get the locations of changes in the original file from a source map
@@ -13,7 +13,7 @@ export async function getChangeLocationsInOriginalFile(
   originalGeneratedFile,
   changedFile
 ) {
-  const changes = diffLines(originalGeneratedFile, changedFile);
+  const changes = computeLineDifferences(originalGeneratedFile, changedFile);
 
   // Read the source map
   const rawSourceMap = await getSourceMap();
@@ -48,12 +48,20 @@ function getChangesFromConsumer(consumer, changes) {
     const { lastMappingBeforeChange, nextMappingAfterChange } =
       getMappingsForChange(consumer, change);
     const lineChanged = getLineChanged(lastMappingBeforeChange, change);
+    console.log({
+      changeStartLine: lastMappingBeforeChange.originalLine,
+      changeEndLine: nextMappingAfterChange.originalLine,
+      lineBeforeChange: change.originalLine,
+      lineAfterChange: change.updatedLine,
+      ruleAdded: change.updatedLine=== '',
+    });
 
     allChanges.push({
       changeStartLine: lineChanged,
       changeEndLine: nextMappingAfterChange.originalLine,
       lineBeforeChange: change.originalLine,
-      lineAfterChange: change.changedLine,
+      lineAfterChange: change.updatedLine,
+      ruleAdded: change.updatedLine=== '',
     });
   });
 
@@ -71,8 +79,8 @@ function getMappingsForChange(consumer, change) {
   let nextMappingAfterChange;
 
   consumer.eachMapping((m) => {
-    const isMappingAfterChange = m.generatedLine > change.line;
-    if (m.generatedLine <= change.line) {
+    const isMappingAfterChange = m.generatedLine > change.lineIndex;
+    if (m.generatedLine <= change.lineIndex) {
       lastMappingBeforeChange = m;
     } else if (isMappingAfterChange && !nextMappingAfterChange) {
       nextMappingAfterChange = m;
@@ -90,7 +98,7 @@ function getMappingsForChange(consumer, change) {
  */
 function getLineChanged(lastMappingBeforeChange, change) {
   const linesAfterLastMappingBeforeChange =
-    change.line - lastMappingBeforeChange.generatedLine;
+    change.lineIndex - lastMappingBeforeChange.generatedLine;
   return (
     lastMappingBeforeChange.originalLine + linesAfterLastMappingBeforeChange
   );
