@@ -1,52 +1,71 @@
 import child_process from "child_process";
+import debug from "debug";
 import fs from "fs";
 import { join } from "path";
 import { SourceMapConsumer } from "source-map";
 import { diffLines } from "./diff.js";
 import { updateOriginalFileWithChanges } from "./file.js";
 
+const log = debug("css-watch");
+
+const config = {
+  cssOutputFile: join(process.cwd(), "./dist/assets/output.css"),
+};
+
 (async () => {
   child_process.execSync("npm run build:css");
-  let file = await fs.promises.readFile(
-    join(process.cwd(), "./dist/assets/output.css"),
-    "utf8"
-  );
-  // remove source maps
-  let lines = file.split("\n");
-  lines = lines.filter((line) => !line.startsWith("/*# sourceMappingURL="));
-  lines.pop();
 
-  const newFile = lines.join("\n");
+  // Remove source maps
+  let fileContent = await fs.promises.readFile(config.cssOutputFile, "utf8");
+  let linesWithoutSourceMaps = removeSourceMaps(fileContent);
 
-  await fs.promises.writeFile(
-    join(process.cwd(), "./dist/assets/output.css"),
-    newFile
-  );
+  const newFileContent = linesWithoutSourceMaps.join("\n");
 
-  file = await fs.promises.readFile(
-    join(process.cwd(), "./dist/assets/output.css"),
+  await fs.promises.writeFile(config.cssOutputFile, newFileContent);
+  const unchangedFileContent = await fs.promises.readFile(
+    config.cssOutputFile,
     "utf8"
   );
 
-  const unchangedFile = file;
-
-  fs.watchFile(join(process.cwd(), "./dist/assets/output.css"), async () => {
-    file = await fs.promises.readFile(
-      join(process.cwd(), "./dist/assets/output.css"),
+  // Watch for changes in the output file
+  fs.watchFile(config.cssOutputFile, async () => {
+    const changedFileContent = await fs.promises.readFile(
+      config.cssOutputFile,
       "utf8"
     );
-    console.log("output.css changed");
+    log("output.css changed");
     // Update original file
-    const changes = await getChangeLocationsInOriginalFile(unchangedFile, file);
+    const changes = await getChangeLocationsInOriginalFile(
+      unchangedFileContent,
+      changedFileContent
+    );
     await updateOriginalFileWithChanges(changes);
   });
 })();
 
+/**
+ * Remove source map lines from file content
+ * @param {string} fileContent - The file content
+ * @returns {string[]} - The lines in the file without the source maps
+ */
+function removeSourceMaps(fileContent) {
+  const lines = fileContent.split("\n");
+  return lines
+    .filter((line) => !line.startsWith("/*# sourceMappingURL="))
+    .slice(0, -1);
+}
+
+/**
+ * Get the changes in the original file
+ * @param {string} originalGeneratedFile - The original generated file content
+ * @param {string} changedFile - The changed file content
+ * @returns {Promise<Object[]>} - The changes in the original file
+ */
 async function getChangeLocationsInOriginalFile(
   originalGeneratedFile,
   changedFile
 ) {
-  const changes = diffLines(originalGeneratedFile, changedFile);
+  const lineDiffs = diffLines(originalGeneratedFile, changedFile);
 
   // Read the source map
   const rawSourceMap = await fs.promises.readFile(
@@ -57,48 +76,38 @@ async function getChangeLocationsInOriginalFile(
   // Create a SourceMapConsumer
   const consumer = await new SourceMapConsumer(rawSourceMap);
 
-  const allChanges = [];
-
-  changes.forEach((change) => {
-    let lastMappingBeforeChange;
-    let nextMappingAfterChange;
-    consumer.eachMapping((m) => {
-      const isMappingAfterChange = m.generatedLine > change.line;
-      if (m.generatedLine <= change.line) {
-        lastMappingBeforeChange = m;
-      } else if (isMappingAfterChange && !nextMappingAfterChange) {
-        nextMappingAfterChange = m;
-        // console.log("mapping after:", m);
-      }
-    });
-
-    const linesAfterLastMappingBeforeChange =
-      change.line - lastMappingBeforeChange.generatedLine;
-    const lineChanged =
-      lastMappingBeforeChange.originalLine + linesAfterLastMappingBeforeChange;
-
-    allChanges.push({
-      changeStartLine: lineChanged,
-      changeEndLine: nextMappingAfterChange.originalLine,
-      lineBeforeChange: change.originalLine,
-      lineAfterChange: change.changedLine,
-    });
-  });
-  // Map changes back to the original source
-  let originalChanges = changes.map((change) => {
-    if (change.added || change.removed) {
-      const { line } = change;
-      const originalPosition = consumer.originalPositionFor({
-        line: line + 1,
-        column: 0,
-      });
-      return { ...change, originalPosition };
-    }
-    return change;
-  });
+  const allChanges = lineDiffs.map((diff) => getChangeForDiff(diff, consumer));
 
   return allChanges;
+}
 
-  // Now you can use `originalChanges` to update your original source file
-  // This will depend on how your original source file is structured and how you want to apply the changes
+/**
+ * Get the change for a given diff
+ * @param {Object} diff - The diff
+ * @param {SourceMapConsumer} consumer - The SourceMapConsumer
+ * @returns {Object} - The change for the diff
+ */
+function getChangeForDiff(diff, consumer) {
+  let lastMappingBeforeChange;
+  let nextMappingAfterChange;
+
+  consumer.eachMapping((mapping) => {
+    if (mapping.generatedLine <= diff.line) {
+      lastMappingBeforeChange = mapping;
+    } else if (!nextMappingAfterChange) {
+      nextMappingAfterChange = mapping;
+    }
+  });
+
+  const linesAfterLastMappingBeforeChange =
+    diff.line - lastMappingBeforeChange.generatedLine;
+  const lineChanged =
+    lastMappingBeforeChange.originalLine + linesAfterLastMappingBeforeChange;
+
+  return {
+    changeStartLine: lineChanged,
+    changeEndLine: nextMappingAfterChange.originalLine,
+    lineBeforeChange: diff.originalLine,
+    lineAfterChange: diff.changedLine,
+  };
 }

@@ -1,5 +1,7 @@
+import debug from "debug";
 import fs from "fs";
 import { join } from "path";
+const log = debug("css-watch:file");
 
 /**
  * Update original file with given changes
@@ -43,6 +45,7 @@ export const findOriginalLineNr = (originalFileLines, change) => {
     return changedAttribute === currentAttribute;
   });
 
+  log("changed line " + lineIndex + 1);
   // We return lineIndex + 1 because arrays are 0-indexed and lines are 1-indexed
   return lineIndex + 1;
 };

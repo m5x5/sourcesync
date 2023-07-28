@@ -27,23 +27,38 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
   background-color: oklch(0.19 0 0);
 }
 
+nav {
+  background: #282828;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+  display: flex;
+}
+
+li {
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
 h1 {
   line-height: 1.1;
-  font-size: 1.4em;
-  color: oklch(0.99 0 0);
+  font-size: 1.8em;
+  color: oklch(0.62 0.24 320.75);
 }
 
 #app {
-  max-width: 1280px;
+  max-width: 733px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0rem;
   text-align: center;
 }
 
