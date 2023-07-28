@@ -51,8 +51,8 @@ li {
 
 h1 {
   line-height: 1.1;
-  font-size: 1.8em;
-  color: oklch(0.62 0.24 320.75);
+  font-size: 1.9rem;
+  color: oklch(0.7 0.14 268.11);
 }
 
 #app {

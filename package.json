@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "DEBUG=css-watch* node ./src/cssWatch/cssWatch.js",
     "build": "tsc && vite build",
     "build:css": "lightningcss --bundle --sourcemap ./src/style.css -o ./dist/assets/output.css",
     "preview": "vite preview"
