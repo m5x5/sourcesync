@@ -18,6 +18,8 @@ SourceSync is a Node.js utility tool designed to enable seamless bidirectional s
 - Utilizes CSS source maps: SourceSync intelligently parses the source maps to locate the correct lines in the source file.
 - Fast: Implements an efficient line diffing algorithm to locate changes quickly.
 
+![demo](https://github.com/m5x5/sourcesync/assets/30301026/0cc461cd-250c-4902-84ed-2f35830f4fc5)
+
 ## Installation
 
 ```bash
