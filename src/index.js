@@ -1,6 +1,7 @@
-import child_process from "child_process";
 import debug from "debug";
 import fs from "fs";
+import { bundle } from "lightningcss";
+import path from "path";
 import { updateOriginalFileWithChanges } from "./sync/cssSync.js";
 import { removeSourceMaps } from "./utils/fileUtils.js";
 import { getChangeLocationsInOriginalFile } from "./utils/sourceMapUtils.js";
@@ -16,8 +17,24 @@ class SourceSync {
   }
 
   async buildCss() {
-    child_process.execSync(
-      `npx lightningcss --bundle --sourcemap ${this.config.sourceFile} -o ${this.config.cssOutputFile}`
+    const filename = this.config.sourceFile.split(path.sep).pop();
+
+    if (!filename) {
+      throw new Error("Could not get filename from sourcePath");
+    }
+
+    const buffer = await fs.promises.readFile(this.config.cssOutputFile);
+
+    const { code, map: mapBuffer } = bundle({
+      filename: this.config.sourceFile,
+      code: buffer.toString(),
+      sourceMap: true,
+    });
+
+    await fs.promises.writeFile(this.config.cssOutputFile, code);
+    await fs.promises.writeFile(
+      `${this.config.cssOutputFile}.map`,
+      mapBuffer.toString()
     );
   }
 
@@ -61,7 +78,10 @@ class SourceSync {
         const fileSpecificChanges = changes.filter(
           (change) => change.originalFile === changedFile
         );
-        await updateOriginalFileWithChanges(fileSpecificChanges, changedFile);
+        await updateOriginalFileWithChanges(
+          fileSpecificChanges,
+          "/" + changedFile
+        );
       }
       unchangedFileContent = changedFileContent;
     });

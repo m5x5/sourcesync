@@ -1,5 +1,4 @@
 import fs from "fs";
-import { join } from "path";
 
 /**
  * Update the original file with the changes
@@ -10,7 +9,7 @@ export const updateOriginalFileWithChanges = async (
   changes,
   originalFileRelativePath
 ) => {
-  const originalFilePath = join(process.cwd(), originalFileRelativePath);
+  const originalFilePath = originalFileRelativePath;
   const originalFile = (
     await fs.promises.readFile(originalFilePath, "utf8")
   ).split("\n");
@@ -38,7 +37,6 @@ export const updateOriginalFileWithChanges = async (
     }
   });
 
-  // Save a copy of the edited file
   return fs.promises.writeFile(originalFilePath, originalFile.join("\n"));
 };
 

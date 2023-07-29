@@ -1,5 +1,4 @@
 import fs from "fs";
-import { join } from "path";
 import { SourceMapConsumer } from "source-map";
 import { computeLineDifferences } from "../diff/cssDiff.js";
 
@@ -30,10 +29,7 @@ export async function getChangeLocationsInOriginalFile(
  * @returns {Promise<string>} - The raw source map
  */
 async function getSourceMap(cssOutputFile) {
-  return fs.promises.readFile(
-    join(process.cwd(), cssOutputFile + ".map"),
-    "utf8"
-  );
+  return fs.promises.readFile(cssOutputFile + ".map", "utf8");
 }
 
 /**
