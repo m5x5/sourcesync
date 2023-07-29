@@ -244,8 +244,8 @@ article {
   width: 94vw;
   max-width: 690px;
   margin-top: clamp(1rem, 6vw, 5rem);
-  display: block;
   margin-bottom: 7rem;
+  display: block;
 }
 
 article h2 {
