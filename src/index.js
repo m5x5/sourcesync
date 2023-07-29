@@ -49,7 +49,8 @@ class SourceSync {
       log("output.css changed");
       const changes = await getChangeLocationsInOriginalFile(
         unchangedFileContent,
-        changedFileContent
+        changedFileContent,
+        this.config.cssOutputFile
       );
       const changedFiles = Array.from(
         new Set(changes.map((change) => change.originalFile))

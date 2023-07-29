@@ -11,12 +11,13 @@ import { computeLineDifferences } from "../diff/cssDiff.js";
  */
 export async function getChangeLocationsInOriginalFile(
   originalGeneratedFile,
-  changedFile
+  changedFile,
+  cssOutputPath
 ) {
   const changes = computeLineDifferences(originalGeneratedFile, changedFile);
 
   // Read the source map
-  const rawSourceMap = await getSourceMap();
+  const rawSourceMap = await getSourceMap(cssOutputPath);
 
   // Create a SourceMapConsumer
   const consumer = await new SourceMapConsumer(rawSourceMap);
@@ -28,9 +29,9 @@ export async function getChangeLocationsInOriginalFile(
  * Get the source map from the output file
  * @returns {Promise<string>} - The raw source map
  */
-async function getSourceMap() {
+async function getSourceMap(cssOutputFile) {
   return fs.promises.readFile(
-    join(process.cwd(), "./public/styles/output.css.map"),
+    join(process.cwd(), cssOutputFile + ".map"),
     "utf8"
   );
 }
