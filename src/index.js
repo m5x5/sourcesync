@@ -5,7 +5,7 @@ import { updateOriginalFileWithChanges } from "./sync/cssSync.js";
 import { removeSourceMaps } from "./utils/fileUtils.js";
 import { getChangeLocationsInOriginalFile } from "./utils/sourceMapUtils.js";
 
-const log = debug("css-watch");
+const log = debug("sourcesync");
 
 class SourceSync {
   constructor(sourcePath, outputPath) {
