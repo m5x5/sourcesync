@@ -7,6 +7,8 @@ SourceSync is a Node.js utility tool designed to enable seamless bidirectional s
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+  - [As a Library](#as-a-library)
+  - [Command Line Interface (CLI)](#command-line-interface-cli)
 - [Contribute](#contribute)
 - [License](#license)
 
@@ -24,6 +26,8 @@ npm install sourcesync
 
 ## Usage
 
+### As a Library
+
 Import and use SourceSync in your Node.js application:
 
 ```javascript
@@ -34,6 +38,20 @@ const sync = new SourceSync('path/to/source', 'path/to/output');
 
 // Start the synchronization process
 sync.startSync();
+```
+
+### Command Line Interface (CLI)
+
+You can also use SourceSync from the command line:
+
+```bash
+npx sourcesync path/to/source path/to/output
+```
+
+Or, if you have it installed globally:
+
+```bash
+sourcesync path/to/source path/to/output
 ```
 
 ## Contribute
