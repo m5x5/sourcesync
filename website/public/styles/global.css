@@ -6,6 +6,10 @@ h1 {
   font-size: clamp(1.5rem, 5vw, 3rem) !important;
 }
 
+article h1 {
+  margin-bottom: 2.5rem;
+}
+
 body {
   color: white;
   margin: 0;
@@ -13,9 +17,10 @@ body {
   min-height: 100vh;
 }
 
+li,
 p {
-  font-size: clamp(0.8rem, 1.9vw, 1rem);
-  color: #aaaaaa;
+  font-size: clamp(0.8rem, 1.9vw, 0.9rem);
+  color: #d1d1d1;
   line-height: 1.6;
 }
 
@@ -25,6 +30,11 @@ article {
   margin-inline: auto;
   width: 94vw;
   margin-top: clamp(1rem, 6vw, 5rem);
+  margin-bottom: 7rem;
+}
+
+article h2 {
+  margin-top: 2rem;
 }
 
 .article h1 {

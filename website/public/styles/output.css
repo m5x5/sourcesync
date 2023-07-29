@@ -1,11 +1,11 @@
-nav a {
+nav a, footer a {
   text-decoration: inherit;
   color: inherit;
   padding: .6rem 1rem;
   transition: all .3s;
 }
 
-nav a:hover {
+nav a:hover, footer a:hover {
   filter: brightness(.5);
 }
 
@@ -16,7 +16,14 @@ body {
   margin: 0;
 }
 
-nav ul {
+nav, footer {
+  background: #000;
+  border-bottom: .9px solid #2d2d2d;
+  width: 100vw;
+  display: inline-block;
+}
+
+nav ul, footer ul {
   box-sizing: border-box;
   width: 100vw;
   margin: 0;
@@ -25,7 +32,7 @@ nav ul {
   display: flex;
 }
 
-nav li {
+nav li, footer li {
   font-size: .8em;
   font-weight: 400;
   transition: all .3s;
@@ -49,18 +56,15 @@ nav {
 
 ul {
   box-sizing: border-box;
-  width: 100vw;
-  margin: 0;
-  padding-inline: 1rem;
-  list-style-type: square;
-  display: flex;
+  color: #fff;
+  margin: 0 0 .5rem;
+  padding-left: 1rem;
 }
 
 li {
   font-size: .8em;
   font-weight: 400;
   transition: all .3s;
-  display: contents;
 }
 
 h1 {
@@ -97,8 +101,9 @@ h1 {
   font-size: .8rem;
 }
 
-button {
+button, .button {
   cursor: pointer;
+  color: #fff;
   background-color: #252525;
   border: 1px solid #0000;
   place-self: center;
@@ -106,6 +111,7 @@ button {
   font-family: inherit;
   font-size: .9em;
   font-weight: 500;
+  text-decoration: none;
   transition: filter .3s;
 }
 
@@ -123,7 +129,7 @@ button:focus, button:focus-visible {
     background-color: #fff;
   }
 
-  button {
+  button, .button {
     background-color: #f9f9f9;
   }
 
@@ -146,7 +152,7 @@ section p {
     height: 8em;
   }
 
-  button {
+  button, .button {
     border-bottom: 1px solid #0000000d;
     padding: .8em 1.4em;
     font-size: .8em;
@@ -178,11 +184,11 @@ img {
   background-color: #646cff;
 }
 
-button#counter {
+.btn-primary {
   position: relative;
 }
 
-button#counter:after {
+.btn-primary:after {
   content: "";
   background-color: #646cff;
   width: 2rem;
@@ -199,11 +205,11 @@ button#counter:active {
   outline: none;
 }
 
-button:focus, a:focus {
+.btn-primary:focus, a:focus {
   outline: 1px solid #666eff80;
 }
 
-button#counter:active:after {
+.btn-primary:active:after {
   width: 3.5rem;
 }
 
@@ -216,6 +222,10 @@ h1 {
   font-size: clamp(1.5rem, 5vw, 3rem) !important;
 }
 
+article h1 {
+  margin-bottom: 2.5rem;
+}
+
 body {
   color: #fff;
   width: 100vw;
@@ -223,9 +233,9 @@ body {
   margin: 0;
 }
 
-p {
-  font-size: clamp(0.8rem, 1.9vw, 1rem);
-  color: #aaaaaa;
+li, p {
+  color: #d1d1d1;
+  font-size: clamp(.8rem, 1.9vw, .9rem);
   line-height: 1.6;
 }
 
@@ -235,6 +245,11 @@ article {
   max-width: 690px;
   margin-top: clamp(1rem, 6vw, 5rem);
   display: block;
+  margin-bottom: 7rem;
+}
+
+article h2 {
+  margin-top: 2rem;
 }
 
 .article h1 {

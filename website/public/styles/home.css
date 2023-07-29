@@ -14,19 +14,17 @@ nav {
 }
 
 ul {
-  display: flex;
-  width: 100vw;
-  padding-inline: 1rem;
+  padding-left: 1rem;
   box-sizing: border-box;
+  color: #fff;
   margin: 0;
-  list-style-type: square;
+  margin-bottom: 0.5rem;
 }
 
 li {
   font-size: 0.8em;
   font-weight: 400;
   transition: 0.3s all;
-  display: contents;
 }
 
 h1 {
@@ -61,7 +59,8 @@ h1 {
   font-size: 0.8rem;
 }
 
-button {
+button,
+.button {
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 0.9em;
@@ -71,6 +70,8 @@ button {
   cursor: pointer;
   transition: filter 0.3s;
   place-self: center;
+  color: white;
+  text-decoration: none;
 }
 
 button:hover {
@@ -88,7 +89,8 @@ button:focus-visible {
     background-color: #ffffff;
   }
 
-  button {
+  button,
+  .button {
     background-color: #f9f9f9;
   }
 
@@ -111,7 +113,8 @@ section p {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  button {
+  button,
+  .button {
     padding: 0.8em 1.4em;
     font-size: 0.8em;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -145,10 +148,12 @@ img {
   background-color: #646cff;
   color: #ffffff;
 }
-button#counter {
+
+.btn-primary {
   position: relative;
 }
-button#counter::after {
+
+.btn-primary::after {
   content: "";
   background-color: #646cff;
   width: 2rem;
@@ -165,12 +170,12 @@ button#counter:active {
   outline: none;
 }
 
-button:focus,
+.btn-primary:focus,
 a:focus {
   outline: 1px solid rgb(102 110 255 / 50%);
 }
 
-button#counter:active::after {
+.btn-primary:active::after {
   width: 3.5rem;
 }
 
