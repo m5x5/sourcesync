@@ -19,7 +19,11 @@ export const updateOriginalFileWithChanges = async (
     if (change.added) {
       const previousLine = previousLineNr(originalFile, change);
 
-      originalFile.splice(previousLine, 0, change.lineAfterChange);
+      originalFile.splice(
+        previousLine,
+        0,
+        change.lineAfterChange.replace("\n", "")
+      );
     } else if (change.replaced) {
       const originalLineNr = findOriginalLineNr(originalFile, change);
 

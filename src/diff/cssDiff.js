@@ -2,7 +2,6 @@ import { diffLines as diff } from "diff";
 
 export const computeLineDifferences = (originalContent, updatedContent) => {
   let diffResult = diff(originalContent, updatedContent);
-  diffResult.forEach(console.log);
   // if removed and then added mark as updated and ignore the removed
   diffResult = diffResult
     .map((part, i) => {
@@ -21,9 +20,6 @@ export const computeLineDifferences = (originalContent, updatedContent) => {
       return part;
     })
     .filter(Boolean);
-
-  console.log("after update");
-  diffResult.forEach(console.log);
 
   const changes = diffResult
     .map((part, i) => {

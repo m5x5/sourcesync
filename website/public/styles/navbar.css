@@ -1,0 +1,40 @@
+nav a {
+  text-decoration: inherit;
+  color: inherit;
+  transition: 0.3s all;
+  padding: 0.6rem 1rem;
+}
+
+nav a:hover {
+  filter: brightness(0.5);
+}
+
+body {
+  margin: 0;
+  place-items: center;
+  min-width: 290px;
+  min-height: 100vh;
+}
+
+nav {
+  background: #000000;
+  display: inline-block;
+  border-bottom: 0.9px solid #2d2d2d;
+  width: 100vw;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  width: 100vw;
+  padding-inline: 1rem;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+nav li {
+  font-size: 0.8em;
+  font-weight: 400;
+  transition: 0.3s all;
+  display: contents;
+}

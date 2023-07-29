@@ -1,55 +1,70 @@
 import child_process from "child_process";
 import debug from "debug";
 import fs from "fs";
-import { join } from "path";
 import { updateOriginalFileWithChanges } from "./sync/cssSync.js";
 import { removeSourceMaps } from "./utils/fileUtils.js";
 import { getChangeLocationsInOriginalFile } from "./utils/sourceMapUtils.js";
 
 const log = debug("css-watch");
 
-const config = {
-  cssOutputFile: join(process.cwd(), "./dist/assets/output.css"),
-};
+class SourceSync {
+  constructor(sourcePath, outputPath) {
+    this.config = {
+      cssOutputFile: outputPath,
+      sourceFile: sourcePath,
+    };
+  }
 
-(async () => {
-  child_process.execSync("npm run build:css");
+  async buildCss() {
+    child_process.execSync(
+      `npx lightningcss --bundle --sourcemap ${this.config.sourceFile} -o ${this.config.cssOutputFile}`
+    );
+  }
 
-  // Remove source maps
-  let fileContent = await fs.promises.readFile(config.cssOutputFile, "utf8");
-  let linesWithoutSourceMaps = removeSourceMaps(fileContent);
-
-  const newFileContent = linesWithoutSourceMaps.join("\n");
-
-  await fs.promises.writeFile(config.cssOutputFile, newFileContent);
-  let unchangedFileContent = await fs.promises.readFile(
-    config.cssOutputFile,
-    "utf8"
-  );
-
-  // Watch for changes in the output file
-  fs.watchFile(config.cssOutputFile, async () => {
-    const changedFileContent = await fs.promises.readFile(
-      config.cssOutputFile,
+  async removeCssSourceMaps() {
+    let fileContent = await fs.promises.readFile(
+      this.config.cssOutputFile,
       "utf8"
     );
-    log("output.css changed");
-    // Update original file
-    const changes = await getChangeLocationsInOriginalFile(
-      unchangedFileContent,
-      changedFileContent
-    );
-    const changedFiles = Array.from(
-      new Set(changes.map((change) => change.originalFile))
+    let linesWithoutSourceMaps = removeSourceMaps(fileContent);
+
+    const newFileContent = linesWithoutSourceMaps.join("\n");
+
+    await fs.promises.writeFile(this.config.cssOutputFile, newFileContent);
+  }
+
+  async startSync() {
+    await this.buildCss();
+    await this.removeCssSourceMaps();
+    let unchangedFileContent = await fs.promises.readFile(
+      this.config.cssOutputFile,
+      "utf8"
     );
 
-    changedFiles.forEach(async (changedFile) => {
-      log(`Updating ${changedFile}`);
-      const fileSpecificChanges = changes.filter(
-        (change) => change.originalFile === changedFile
+    fs.watchFile(this.config.cssOutputFile, async () => {
+      const changedFileContent = await fs.promises.readFile(
+        this.config.cssOutputFile,
+        "utf8"
       );
-      await updateOriginalFileWithChanges(fileSpecificChanges, changedFile);
+      log("output.css changed");
+      const changes = await getChangeLocationsInOriginalFile(
+        unchangedFileContent,
+        changedFileContent
+      );
+      const changedFiles = Array.from(
+        new Set(changes.map((change) => change.originalFile))
+      );
+
+      for (let changedFile of changedFiles) {
+        log(`Updating ${changedFile}`);
+        const fileSpecificChanges = changes.filter(
+          (change) => change.originalFile === changedFile
+        );
+        await updateOriginalFileWithChanges(fileSpecificChanges, changedFile);
+      }
+      unchangedFileContent = changedFileContent;
     });
-    unchangedFileContent = changedFileContent;
-  });
-})();
+  }
+}
+
+export { SourceSync };

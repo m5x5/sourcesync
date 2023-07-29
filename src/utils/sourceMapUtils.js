@@ -30,7 +30,7 @@ export async function getChangeLocationsInOriginalFile(
  */
 async function getSourceMap() {
   return fs.promises.readFile(
-    join(process.cwd(), "./dist/assets/output.css.map"),
+    join(process.cwd(), "./public/styles/output.css.map"),
     "utf8"
   );
 }
