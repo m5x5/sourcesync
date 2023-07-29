@@ -6,21 +6,31 @@ import { join } from "path";
  * @param {Object[]} changes - The changes to apply to the original file
  * @returns {Promise<void>}
  */
-export const updateOriginalFileWithChanges = async (changes) => {
-  const originalFilePath = join(process.cwd(), "./src/style.css");
+export const updateOriginalFileWithChanges = async (
+  changes,
+  originalFileRelativePath
+) => {
+  const originalFilePath = join(process.cwd(), originalFileRelativePath);
   const originalFile = (
     await fs.promises.readFile(originalFilePath, "utf8")
   ).split("\n");
 
   changes.forEach((change) => {
-    if (change.ruleAdded) {
+    if (change.added) {
       const previousLine = previousLineNr(originalFile, change);
 
       originalFile.splice(previousLine, 0, change.lineAfterChange);
-    } else {
+    } else if (change.replaced) {
       const originalLineNr = findOriginalLineNr(originalFile, change);
 
-      originalFile[originalLineNr - 1] = change.lineAfterChange;
+      originalFile[originalLineNr - 1] = change.lineAfterChange.replace(
+        "\n",
+        ""
+      );
+    } else if (change.removed) {
+      const originalLineNr = findOriginalLineNr(originalFile, change);
+
+      originalFile.splice(originalLineNr - 1, 1);
     }
   });
 
@@ -39,7 +49,7 @@ export const findOriginalLineNr = (originalFile, change) => {
     if (change.changeStartLine - 1 > index) return false;
     if (change.changeEndLine < index) return false;
 
-    const changedAttribute = change.lineAfterChange.split(":")[0].trim();
+    const changedAttribute = change.lineBeforeChange.split(":")[0].trim();
     const currentAttribute = line.split(":")[0].trim();
 
     return changedAttribute === currentAttribute;

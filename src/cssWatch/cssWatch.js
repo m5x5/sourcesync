@@ -22,7 +22,7 @@ const config = {
   const newFileContent = linesWithoutSourceMaps.join("\n");
 
   await fs.promises.writeFile(config.cssOutputFile, newFileContent);
-  const unchangedFileContent = await fs.promises.readFile(
+  let unchangedFileContent = await fs.promises.readFile(
     config.cssOutputFile,
     "utf8"
   );
@@ -39,6 +39,17 @@ const config = {
       unchangedFileContent,
       changedFileContent
     );
-    await updateOriginalFileWithChanges(changes);
+    const changedFiles = Array.from(
+      new Set(changes.map((change) => change.originalFile))
+    );
+
+    changedFiles.forEach(async (changedFile) => {
+      log(`Updating ${changedFile}`);
+      const fileSpecificChanges = changes.filter(
+        (change) => change.originalFile === changedFile
+      );
+      await updateOriginalFileWithChanges(fileSpecificChanges, changedFile);
+    });
+    unchangedFileContent = changedFileContent;
   });
 })();

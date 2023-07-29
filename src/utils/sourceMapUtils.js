@@ -47,21 +47,16 @@ function getChangesFromConsumer(consumer, changes) {
   changes.forEach((change) => {
     const { lastMappingBeforeChange, nextMappingAfterChange } =
       getMappingsForChange(consumer, change);
-    const lineChanged = getLineChanged(lastMappingBeforeChange, change);
-    console.log({
-      changeStartLine: lastMappingBeforeChange.originalLine,
-      changeEndLine: nextMappingAfterChange.originalLine,
-      lineBeforeChange: change.originalLine,
-      lineAfterChange: change.updatedLine,
-      ruleAdded: change.updatedLine=== '',
-    });
 
     allChanges.push({
-      changeStartLine: lineChanged,
-      changeEndLine: nextMappingAfterChange.originalLine,
+      changeStartLine: lastMappingBeforeChange?.originalLine ?? 0,
+      changeEndLine: nextMappingAfterChange?.originalLine ?? Infinity,
+      originalFile: lastMappingBeforeChange?.source,
       lineBeforeChange: change.originalLine,
       lineAfterChange: change.updatedLine,
-      ruleAdded: change.updatedLine=== '',
+      removed: change.removed,
+      added: change.added,
+      replaced: change.replaced,
     });
   });
 
@@ -88,18 +83,4 @@ function getMappingsForChange(consumer, change) {
   });
 
   return { lastMappingBeforeChange, nextMappingAfterChange };
-}
-
-/**
- * Get the line that changed in the original file
- * @param {Object} lastMappingBeforeChange - The last mapping before the change
- * @param {Object} change - The change from diffLines
- * @returns {number} - The line that changed in the original file
- */
-function getLineChanged(lastMappingBeforeChange, change) {
-  const linesAfterLastMappingBeforeChange =
-    change.lineIndex - lastMappingBeforeChange.generatedLine;
-  return (
-    lastMappingBeforeChange.originalLine + linesAfterLastMappingBeforeChange
-  );
 }
