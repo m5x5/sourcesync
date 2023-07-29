@@ -2,9 +2,9 @@ import child_process from "child_process";
 import debug from "debug";
 import fs from "fs";
 import { join } from "path";
-import { removeSourceMaps } from "../utils/fileUtils.js";
-import { getChangeLocationsInOriginalFile } from "../utils/sourceMapUtils.js";
-import { updateOriginalFileWithChanges } from "./updateOriginalFile.js";
+import { updateOriginalFileWithChanges } from "./sync/cssSync.js";
+import { removeSourceMaps } from "./utils/fileUtils.js";
+import { getChangeLocationsInOriginalFile } from "./utils/sourceMapUtils.js";
 
 const log = debug("css-watch");
 

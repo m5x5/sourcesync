@@ -1,13 +1,28 @@
 {
-  "name": "vite-project",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "sourcesync",
+  "version": "1.0.0",
+  "description": "Tool to sync changes from browser DevTools to original source files",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "DEBUG=css-watch* node ./src/cssWatch/cssWatch.js",
-    "build": "tsc && vite build",
-    "build:css": "lightningcss --bundle --sourcemap ./src/style.css -o ./dist/assets/output.css",
-    "preview": "vite preview"
+    "start": "node src/index.js",
+    "build:css": "lightningcss --bundle --sourcemap ./src/style.css -o ./website/assets/output.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m5x5/sourcesync.git"
+  },
+  "keywords": [
+    "devtools",
+    "source",
+    "sync"
+  ],
+  "author": "m5x5 <m5x5@example.com>",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.3.4",
+    "diff": "^5.1.0",
+    "source-map": "^0.7.4"
   },
   "devDependencies": {
     "lightningcss-cli": "^1.21.5",
@@ -15,9 +30,5 @@
     "vite": "^4.4.5",
     "vite-plugin-lightningcss": "^0.0.5"
   },
-  "dependencies": {
-    "debug": "^4.3.4",
-    "diff": "^5.1.0",
-    "source-map": "^0.7.4"
-  }
+  "type": "module"
 }

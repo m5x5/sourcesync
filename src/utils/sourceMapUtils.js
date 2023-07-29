@@ -1,7 +1,7 @@
 import fs from "fs";
 import { join } from "path";
 import { SourceMapConsumer } from "source-map";
-import { computeLineDifferences } from "./diffUtils.js";
+import { computeLineDifferences } from "../diff/cssDiff.js";
 
 /**
  * Get the locations of changes in the original file from a source map
