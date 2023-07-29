@@ -1,7 +1,7 @@
 {
   "name": "sourcesync",
   "version": "1.0.0",
-  "description": "Tool to sync changes from browser DevTools to original source files",
+  "description": "Tool to bidirectionally sync changes in CSS files between browser's DevTools and Sass/PostCSS/etc sources",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
