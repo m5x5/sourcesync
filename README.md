@@ -1,6 +1,6 @@
 # SourceSync
 
-SourceSync is a Node.js utility tool designed to enable seamless bidirectional synchronization between original CSS source files and the output CSS files generated in the browser's dev tools. By leveraging CSS source maps and a novel line diffing algorithm, SourceSync empowers front-end developers to modify CSS in their browser's dev tools and have those changes reflected back in their original CSS source files.
+SourceSync keeps your CSS source files in sync with your browser's dev tools. It works with PostCSS, LightningCSS, SASS or plain CSS. Enjoy the convenience of real-time browser-to-source CSS editing.
 
 ## Table of Contents
 

@@ -2,7 +2,7 @@
 @import "./home.css";
 
 h1 {
-  color: #af1d1d !important;
+  color: #ffffff !important;
   font-size: clamp(1.5rem, 5vw, 3rem) !important;
 }
 
