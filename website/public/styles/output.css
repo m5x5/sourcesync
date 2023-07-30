@@ -27,7 +27,7 @@ nav ul, footer ul {
   box-sizing: border-box;
   width: 100vw;
   margin: 0;
-  padding-inline: 1rem;
+  padding-inline: 0;
   list-style-type: none;
   display: flex;
 }
@@ -48,10 +48,15 @@ body {
 }
 
 nav {
-  background: #000;
+  background: #000000;
   border-bottom: .9px solid #2d2d2d;
   width: 100vw;
   display: inline-block;
+}
+
+.logo {
+  height: 1.5em;
+  padding: .5em;
 }
 
 ul {
@@ -79,13 +84,6 @@ h1 {
   text-align: center;
   margin: 0 auto;
   padding: 0;
-}
-
-.logo {
-  will-change: filter;
-  height: 6em;
-  padding: 1.5em;
-  transition: filter .3s;
 }
 
 .logo:hover {
@@ -147,11 +145,6 @@ section p {
 }
 
 @media (width >= 600px) {
-  .logo {
-    border-top: 1px solid #ffffff0d;
-    height: 8em;
-  }
-
   button, .button {
     border-bottom: 1px solid #0000000d;
     padding: .8em 1.4em;
@@ -219,7 +212,7 @@ button#counter:active {
 
 h1 {
   color: #fff !important;
-  font-size: clamp(1.5rem, 5vw, 3rem) !important;
+  font-size: clamp(1.6rem, 5vw, 3rem) !important;
 }
 
 article h1 {
@@ -252,7 +245,7 @@ article h2 {
   margin-top: 2rem;
 }
 
-.article h1 {
+article h1 {
   font-size: clamp(1.5rem, 5vw, 3rem);
 }
 

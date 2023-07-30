@@ -13,6 +13,11 @@ nav {
   width: 100vw;
 }
 
+.logo {
+  padding: 0.5em;
+  height: 1.5em;
+}
+
 ul {
   padding-left: 1rem;
   box-sizing: border-box;
@@ -41,12 +46,6 @@ h1 {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -108,11 +107,6 @@ section p {
 }
 
 @media (min-width: 600px) {
-  .logo {
-    height: 8em;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
   button,
   .button {
     padding: 0.8em 1.4em;

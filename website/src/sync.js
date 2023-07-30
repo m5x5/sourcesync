@@ -1,5 +1,5 @@
 import path from "path";
-import { SourceSync } from "sourcesync";
+import { SourceSync } from "sourcesyncjs";
 
 const sourcePath = path.join(process.cwd(), "./public/styles/global.css");
 const outputPath = path.join(process.cwd(), "./public/styles/output.css");

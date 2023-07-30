@@ -3,7 +3,7 @@
 
 h1 {
   color: #ffffff !important;
-  font-size: clamp(1.5rem, 5vw, 3rem) !important;
+  font-size: clamp(1.6rem, 5vw, 3rem) !important;
 }
 
 article h1 {

@@ -30,7 +30,7 @@ SourceSync keeps your CSS source files in sync with your browser's dev tools. It
 ## Installation
 
 ```bash
-npm install sourcesync
+npm install sourcesyncjs
 ```
 
 ## Usage
@@ -40,7 +40,7 @@ npm install sourcesync
 Import and use SourceSync in your Node.js application:
 
 ```javascript
-import { SourceSync } from 'sourcesync';
+import { SourceSync } from 'sourcesyncjs';
 
 // Initialize SourceSync with the path to your source and output files
 const sync = new SourceSync('path/to/source', 'path/to/output');
