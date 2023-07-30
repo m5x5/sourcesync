@@ -14,6 +14,8 @@ class SourceSync {
       cssOutputFile: outputPath,
       sourceFile: sourcePath,
     };
+
+    this.internalUpdate = false;
   }
 
   async buildCss() {
@@ -30,6 +32,8 @@ class SourceSync {
       code: buffer.toString(),
       sourceMap: true,
     });
+
+    this.internalUpdate = true;
 
     await fs.promises.writeFile(this.config.cssOutputFile, code);
     await fs.promises.writeFile(
@@ -59,6 +63,11 @@ class SourceSync {
     );
 
     fs.watchFile(this.config.cssOutputFile, async () => {
+      if (this.internalUpdate) {
+        this.internalUpdate = false;
+        return;
+      }
+
       const changedFileContent = await fs.promises.readFile(
         this.config.cssOutputFile,
         "utf8"
@@ -84,6 +93,8 @@ class SourceSync {
         );
       }
       unchangedFileContent = changedFileContent;
+
+      this.buildCss();
     });
   }
 }
