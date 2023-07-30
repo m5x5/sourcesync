@@ -1,6 +1,6 @@
 {
   "name": "sourcesyncjs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Tool to bidirectionally sync changes in CSS files between browser's DevTools and Sass/PostCSS/etc sources",
   "main": "src/index.js",
   "scripts": {

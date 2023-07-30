@@ -1,5 +1,7 @@
 ---
 interface Props {}
+const packageJson = import('../../../package.json')
+const version = await packageJson.then((p) => p.version)
 ---
 
 <nav class="navbar">
@@ -12,4 +14,6 @@ interface Props {}
       <a href="https://github.com/m5x5/sourcesync/" target="_blank">GitHub</a>
     </li>
   </ul>
+
+  <!-- {version && (<small>v. {version}</small>)} -->
 </nav>

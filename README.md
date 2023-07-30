@@ -1,8 +1,13 @@
-<p align="center">
+<div align="center">
   <a href="https://sourcesync.vercel.app" target="_blank" rel="noopener noreferrer">
     <img width="180" src="https://sourcesync.vercel.app/logo.svg" alt="SourceSync Logo">
   </a>
-</p>
+
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/m5x5/sourcesync/graphs/commit-activity)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+</div>
+
 <br/>
 
 # SourceSync 🚀
@@ -40,13 +45,13 @@ npm install sourcesyncjs
 Import and use SourceSync in your Node.js application:
 
 ```javascript
-import { SourceSync } from 'sourcesyncjs';
+import { SourceSync } from 'sourcesyncjs'
 
 // Initialize SourceSync with the path to your source and output files
-const sync = new SourceSync('path/to/source', 'path/to/output');
+const sync = new SourceSync('path/to/source', 'path/to/output')
 
 // Start the synchronization process
-sync.startSync();
+sync.startSync()
 ```
 
 ### Command Line Interface (CLI)
