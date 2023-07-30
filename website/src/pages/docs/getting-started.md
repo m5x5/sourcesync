@@ -12,7 +12,7 @@ Welcome to SourceSync! In this guide, we'll walk you through the process of sett
 To get started, you'll first need to install SourceSync:
 
 ```bash
-npm install sourcesync
+npm install sourcesyncjs
 ```
 
 ## Initialization
@@ -20,7 +20,7 @@ npm install sourcesync
 Next, import SourceSync in your project and create a new instance:
 
 ```js
-import { SourceSync } from "sourcesync";
+import { SourceSync } from "sourcesyncjs";
 
 const sync = new SourceSync("/path/to/source/file", "/path/to/output/file");
 ```
