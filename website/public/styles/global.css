@@ -1,5 +1,6 @@
 @import "./navbar.css";
 @import "./home.css";
+@import "./section.css";
 
 h1 {
   color: #ffffff !important;

@@ -48,7 +48,7 @@ body {
 }
 
 nav {
-  background: #000000;
+  background: #000;
   border-bottom: .9px solid #2d2d2d;
   width: 100vw;
   display: inline-block;
@@ -139,6 +139,7 @@ button:focus, button:focus-visible {
 section p {
   color: oklch(.59 0 0);
   margin-inline: auto;
+  text-align: left;
   max-width: 80vw;
   margin-bottom: 2em;
   font-size: clamp(.8rem, 2.1vw, .9rem);
@@ -154,15 +155,6 @@ section p {
 
 .border-bottom {
   border-bottom: .9px solid #2d2d2d;
-}
-
-section {
-  aspect-ratio: 2;
-  place-content: center;
-  width: 100vw;
-  min-height: 350px;
-  max-height: 60vh;
-  display: grid;
 }
 
 img {
@@ -208,6 +200,20 @@ button#counter:active {
 
 .hero {
   background: linear-gradient(45deg, #000, #0000);
+}
+
+section {
+  aspect-ratio: 2;
+  place-content: center;
+  width: 100vw;
+  min-height: 350px;
+  max-height: 60vh;
+  display: grid;
+}
+
+.section__content {
+  width: 75vw;
+  max-width: 700px;
 }
 
 h1 {

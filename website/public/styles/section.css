@@ -1,0 +1,12 @@
+section {
+  display: grid;
+  place-content: center;
+  max-height: 60vh;
+  width: 100vw;
+  aspect-ratio: 2 / 1;
+  min-height: 350px;
+}
+
+.section__content {
+  width: clamp();
+}

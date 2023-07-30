@@ -104,6 +104,7 @@ section p {
   max-width: 80vw;
   margin-inline: auto;
   margin-bottom: 2em;
+  text-align: left;
 }
 
 @media (min-width: 600px) {
@@ -120,15 +121,6 @@ section p {
 
 .border-bottom {
   border-bottom: 0.9px solid #2d2d2d;
-}
-
-section {
-  display: grid;
-  place-content: center;
-  max-height: 60vh;
-  width: 100vw;
-  aspect-ratio: 2 / 1;
-  min-height: 350px;
 }
 
 img {
