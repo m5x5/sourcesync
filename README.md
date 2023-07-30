@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://sourcesync.vercel.app" target="_blank" rel="noopener noreferrer">
+    <img width="180" src="https://sourcesync.vercel.app/logo.svg" alt="SourceSync Logo">
+  </a>
+</p>
+<br/>
 # SourceSync
 
 SourceSync keeps your CSS source files in sync with your browser's dev tools. It works with PostCSS, LightningCSS, SASS or plain CSS. Enjoy the convenience of real-time browser-to-source CSS editing.
