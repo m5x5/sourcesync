@@ -1,0 +1,77 @@
+---
+layout: ../../layouts/Article.astro
+title: SourceSync Documentation
+---
+
+import HighlightMessage from '../../components/HighlightMessage.astro'
+
+# Getting Started 🚀
+
+Welcome to SourceSync! In this guide, we'll walk you through the process of setting up SourceSync and using it to sync your browser DevTools changes with your source files.
+
+<HighlightMessage title="Warning">
+
+The documentation is being updated constantly, so some of the information here may be out of date. If you have any questions, please feel free to reach out to [us](https://github.com/m5x5/sourcesync/issues)!
+
+</HighlightMessage>
+
+## Installation
+
+Once you have either cloned or forked the [SourceSync main repository](https://github.com/m5x5/sourcesync), we will have to do a couple of things to set up the development environment.
+
+To get started, you'll first need to install SourceSync globally:
+
+```bash
+npm install sourcesyncjs -g
+```
+
+Let's check that everything is working by running the following command:
+
+```bash
+sourcesync
+```
+
+You should get the following output:
+
+```bash
+Usage: sourcesync <sourcePath> <outputPath>
+```
+
+If you see this, then you're good to go!
+
+## Usage
+
+To use SourceSync, you'll need to provide it with two arguments:
+
+- `sourcePath`: The path to the source files you want to sync with your browser DevTools.
+- `outputPath`: The path to the output files you want to sync with your browser DevTools.
+
+For example, in the case of the SourceSync main repository], we would run the following command:
+
+```bash
+sourcesync public/styles/global.css public/styles/output.css
+```
+
+With this command running, we are almost ready to go and start changing the CSS in our browser. But first, we need to set up our browser. We'll be using Chrome for this example, but we will also provide instructions for other browsers soon.
+
+### SourceSync on Chrome
+
+In order to use SourceSync on Chrome, you'll need to enable the <code>workspace</code>. In order to do that, we have to open the Dev Tools and go to the <code>Source tab</code>. There we need to find the option File System so that we can add a workspace. The workspace will be the path of the repo you just cloned / forked.
+
+<img
+  style="height: 100%; margin: 10px auto"
+  width="100%"
+  height="300px"
+  src="/public/activate-sourcesync-chrome.png"
+  alt="How to activate SourceSync on Google Chrome"
+/>
+
+And that should be it! Now you can start changing the CSS in your browser and see the changes reflected in your source files!
+
+### SourceSync on Firefox
+
+Coming soon!
+
+### SourceSync on Safari
+
+Coming soon!
