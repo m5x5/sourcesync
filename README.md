@@ -3,6 +3,7 @@
     <img width="180" src="https://sourcesync.vercel.app/logo.svg" alt="SourceSync Logo">
   </a>
 
+[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg?style=flat-square)](https://github.com/m5x5?tab=packages&repo_name=sourcesync)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/m5x5/sourcesync/graphs/commit-activity)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
@@ -16,13 +17,15 @@ SourceSync keeps your CSS source files in sync with your browser's dev tools. It
 
 ## Table of Contents
 
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-  - [As a Library](#as-a-library)
-  - [Command Line Interface (CLI)](#command-line-interface-cli)
-- [Contribute](#contribute)
-- [License](#license)
+- [SourceSync 🚀](#sourcesync-)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [As a Library](#as-a-library)
+    - [Command Line Interface (CLI)](#command-line-interface-cli)
+  - [Contribute](#contribute)
+  - [License](#license)
 
 ## Features
 
@@ -45,13 +48,13 @@ npm install sourcesyncjs
 Import and use SourceSync in your Node.js application:
 
 ```javascript
-import { SourceSync } from 'sourcesyncjs'
+import { SourceSync } from "sourcesyncjs";
 
 // Initialize SourceSync with the path to your source and output files
-const sync = new SourceSync('path/to/source', 'path/to/output')
+const sync = new SourceSync("path/to/source", "path/to/output");
 
 // Start the synchronization process
-sync.startSync()
+sync.startSync();
 ```
 
 ### Command Line Interface (CLI)
