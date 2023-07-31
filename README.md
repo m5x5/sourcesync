@@ -3,7 +3,7 @@
     <img width="180" src="https://sourcesync.vercel.app/logo.svg" alt="SourceSync Logo">
   </a>
 
-[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg?style=flat-square)](https://github.com/m5x5?tab=packages&repo_name=sourcesync)
+[![Version](https://img.shields.io/badge/Version-0.0.2-blue.svg?style=flat-square)](https://github.com/m5x5?tab=packages&repo_name=sourcesync)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/m5x5/sourcesync/graphs/commit-activity)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
