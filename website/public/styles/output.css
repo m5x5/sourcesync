@@ -212,7 +212,8 @@ section {
 }
 
 .section__content {
-  width: clamp();
+  width: 75vw;
+  max-width: 700px;
 }
 
 h1 {
