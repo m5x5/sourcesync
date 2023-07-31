@@ -1,15 +1,17 @@
 {
   "name": "website",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sourcesync": "sourcesync ./public/styles/global.css ./public/styles/output.css"
   },
   "dependencies": {
-    "astro": "^2.9.6"
+    "astro": "^2.9.6",
+    "sourcesync": "^1.0.0"
   }
 }
