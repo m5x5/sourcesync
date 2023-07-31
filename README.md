@@ -35,6 +35,11 @@ SourceSync keeps your CSS source files in sync with your browser's dev tools. It
 
 ![demo](https://github.com/m5x5/sourcesync/assets/30301026/34b80c7a-bc18-4c4c-b0fd-ee12de72d5cb)
 
+## Important Tasks
+- [ ] PostCSS and SASS support still needs to be added.
+- [ ] SourceSync needs to work with minified CSS files.
+- [ ] SourceSync needs to have a Vite integration and or watch the original files for changed and transpile them.
+
 ## Installation
 
 ```bash
